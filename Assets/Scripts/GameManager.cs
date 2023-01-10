@@ -5,13 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject rockPrefab;
-    public GameObject shore, frog;
+    public Transform shore;
+    public GameObject frog;
 
     GameObject[] rockPrefabs;
+    Vector3 initFrogPosition;
 
     int nRocks, totalRocks;
     int nTest, nJumps, totalJumps;
     float separation;
+    float media;
 
     bool testOver, gameOver;
 
@@ -35,7 +38,10 @@ public class GameManager : MonoBehaviour
         }
 
         else {
-            RestartTest();
+            if ( Input.GetKeyDown(KeyCode.Space) ) {
+                TeleTransport();
+                RestartTest();
+            }
         }
     }
 
@@ -58,21 +64,21 @@ public class GameManager : MonoBehaviour
         nTest++;
         nJumps = 0;
         nRocks = 0;
+        initFrogPosition = FrogCs.instance.GetPosition();
     }
 
     Vector3 ToPoint()
     {
         int n = Random.Range( nRocks, rockPrefabs.Length );
 
-        Vector3 frogPosition = frog.transform.position;
-        print("Position rana antes: " + frogPosition );
-
+        Vector3 frogPosition = FrogCs.instance.GetPosition();
         Vector3 rockPosition = rockPrefabs[n].transform.position;
-        print("Num. roca destino: " + n );
-        print("Position roca destino: " + rockPosition );
+
+        // print("Position rana antes: " + frogPosition );
+        // print("Num. roca destino: " + n );
+        // print("Position roca destino: " + rockPosition );
 
         rockPosition.y = frogPosition.y;
-        print("Position rana después: " + rockPosition );
 
         nRocks = n+1;
 
@@ -82,18 +88,23 @@ public class GameManager : MonoBehaviour
     void Jump()
     {
         Vector3 toPoint = ToPoint();
-        frog.transform.position = toPoint;
+        // FrogCs.instance.SetPosition( toPoint );
+        FrogCs.instance.DiagonalDirection ( toPoint );
+        FrogCs.instance.SetMovement( true );
         nJumps++;
-        totalJumps += nJumps;
+    }
+
+    void TeleTransport()
+    {
+        FrogCs.instance.SetPosition( initFrogPosition );
     }
 
     void RestartTest()
     {
-        Vector3 frogPosition = frog.transform.position;
-        Vector3 shorePosition = shore.transform.position;
-
-        frogPosition.x = shorePosition.x;
-        frog.transform.position = frogPosition;
+        print($" Saltos test {nTest}: {nJumps}");
+        totalJumps += nJumps;
+        media = (float)totalJumps / (float)nTest;
+        print($"Media: {media}");
 
         InitTest();
     }
@@ -116,12 +127,12 @@ public class GameManager : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label( new Rect(10, 10, 400, 20), "Test nº. " + nTest);
-        GUI.Label( new Rect(110, 10, 400, 20), "Saltos: " + nJumps);
+        GUI.Label( new Rect(10, 10, 400, 20), "Test nº. " + nTest );
+        GUI.Label( new Rect(110, 10, 400, 20), "Saltos: " + nJumps );
 
-        GUI.Label( new Rect(800, 10, 400, 20), "Total Ensayos: " + nTest);
-        GUI.Label( new Rect(910, 10, 400, 20), "Total Saltos: " + totalJumps);
-        GUI.Label( new Rect(1010, 10, 400, 20), "Media: " + totalJumps / nTest);
+        GUI.Label( new Rect(800, 10, 400, 20), "Total Ensayos: " + (nTest -1) );
+        GUI.Label( new Rect(910, 10, 400, 20), "Total Saltos: " + totalJumps );
+        GUI.Label( new Rect(1010, 10, 400, 20), "Media: " + media );
 
     }
 }

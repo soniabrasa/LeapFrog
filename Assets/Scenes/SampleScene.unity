@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rockPrefab: {fileID: 1720106501226789319, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
-  shore: {fileID: 1909599190}
+  shore: {fileID: 1909599193}
   frog: {fileID: 1993431231}
 --- !u!4 &967682435
 Transform:
@@ -264,6 +264,10 @@ PrefabInstance:
     - target: {fileID: 1720106501226789319, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
       propertyPath: m_Name
       value: Shore
+      objectReference: {fileID: 0}
+    - target: {fileID: 4521110790339610654, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4521110790339610654, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
       propertyPath: m_Color.g
@@ -315,9 +319,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
---- !u!1 &1909599190 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1720106501226789319, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
+--- !u!4 &1909599193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4648193802309426489, guid: 36019bd9dc7683273aab1232160b02c7, type: 3}
   m_PrefabInstance: {fileID: 1203678783}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1993431231 stripped

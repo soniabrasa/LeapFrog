@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RockCs : MonoBehaviour
 {
-
     void Start()
     {
 
@@ -14,5 +13,4 @@ public class RockCs : MonoBehaviour
     {
 
     }
-
 }
